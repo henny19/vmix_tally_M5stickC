@@ -26,6 +26,13 @@ const int PassMaxLength = 64;
 const int HostNameMaxLength = 64;
 const int TallyNumberMaxValue = 64;
 
+double vbat = 0.0;
+int discharge, charge;
+double temp = 0.0;
+double bat_p = 0.0;
+double bat_p2 = 0.0;
+
+
 // Settings object
 struct Settings
 {
@@ -264,7 +271,7 @@ void setup()
   M5.Lcd.fillScreen(BLACK);
   if (DEBUG)Serial.print("Connecting Wifi: ");
   if (DEBUG)Serial.println(settings.ssid);
-  WiFi.begin(settings.ssid, settings.password);
+  WiFi.begin(settings.ssid, settings.pass);
   while (WiFi.status() != WL_CONNECTED)
   {
 
