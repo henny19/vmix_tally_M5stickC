@@ -21,32 +21,34 @@ WiFiUDP ntpUDP;
 WiFiClient espClient;
 
 // Constants
+const byte interruptPin = M5_BUTTON_HOME ;
 const int SsidMaxLength = 64;
 const int PassMaxLength = 64;
 const int HostNameMaxLength = 64;
 const int TallyNumberMaxValue = 64;
-
 double vbat = 0.0;
 int discharge, charge;
 double temp = 0.0;
 double bat_p = 0.0;
 double bat_p2 = 0.0;
+int feature = 1;
 
+// HTTP Server settings
 
-// Settings object
-struct Settings
-{
+char deviceName[32];
+int status = WL_IDLE_STATUS;
+bool apEnabled = false;
+char apPass[64];
+
+// User  Settings 
+
   char ssid[SsidMaxLength] = "VodafoneMobileWiFi-025A35";       // your network SSID (name);
   char pass[PassMaxLength] = "1723214510";  // your network key;
   char hostName[HostNameMaxLength] = "192.168.0.101";  // your Vmix ip;
   int tallyNumber = 1;  //vmix Input number to watch
 
 
-};
 
-
-Settings settings;
-bool apEnabled = false;
 
 // vMix settings
 int port = 8099;
@@ -180,7 +182,7 @@ void handleData(String data)
   // Check if server data is tally data
   if (data.indexOf("TALLY") == 0)
   {
-    char newState = data.charAt(settings.tallyNumber + 8);
+    char newState = data.charAt(tallyNumber + 8);
 
     // Check if tally state has changed
     if (currentState != newState)
@@ -218,10 +220,10 @@ void handleData(String data)
 void connectTovMix()
 {
   Serial.print("Connecting to vMix on ");
-  Serial.print(settings.hostName);
+  Serial.print(hostName);
   Serial.print("...");
 
-  if (client.connect(settings.hostName, port))
+  if (client.connect(hostName, port))
   {
     Serial.println(" Connected!");
     Serial.println("------------");
@@ -243,7 +245,7 @@ void start()
 {
   tallySetConnecting();
   
-  sprintf(deviceName, "vMix_Tally_%d", settings.tallyNumber);
+  sprintf(deviceName, "vMix_Tally_%d", tallyNumber);
   sprintf(apPass, "%s%s", deviceName, "_access");
 
   connectTovMix();
@@ -270,8 +272,8 @@ void setup()
   M5.Lcd.printf("Connecting to wifi");
   M5.Lcd.fillScreen(BLACK);
   if (DEBUG)Serial.print("Connecting Wifi: ");
-  if (DEBUG)Serial.println(settings.ssid);
-  WiFi.begin(settings.ssid, settings.pass);
+  if (DEBUG)Serial.println(ssid);
+  WiFi.begin(ssid, pass);
   while (WiFi.status() != WL_CONNECTED)
   {
 
