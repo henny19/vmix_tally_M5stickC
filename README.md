@@ -10,5 +10,9 @@ There Are a few steps to go threw before you can install this code
 
 2) Visit the Below URL and follow the instructions on setting up the Arduino IDE to work with the M5StickC
 
+
+https://docs.m5stack.com/#/en/arduino/arduino_development
+
+
 The code is verry much a work in progress and so far is a proof of concpect.
 
