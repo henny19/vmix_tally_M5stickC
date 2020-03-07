@@ -20,15 +20,6 @@ WiFiClientSecure secureClient;
 WiFiUDP ntpUDP;
 WiFiClient espClient;
 
-
-// User  Settings 
-
-  char ssid[SsidMaxLength] = "VodafoneMobileWiFi-025A35";       // your network SSID (name);
-  char pass[PassMaxLength] = "1723214510";  // your network key;
-  char hostName[HostNameMaxLength] = "192.168.0.101";  // your Vmix ip;
-  int tallyNumber = 1;  //vmix Input number to watch
-
-
 // Constants
 const byte interruptPin = M5_BUTTON_HOME ;
 const int SsidMaxLength = 64;
@@ -41,6 +32,16 @@ double temp = 0.0;
 double bat_p = 0.0;
 double bat_p2 = 0.0;
 int feature = 1;
+
+
+// User  Settings 
+
+  char ssid[SsidMaxLength] = "VodafoneMobileWiFi-025A35";       // your network SSID (name);
+  char pass[PassMaxLength] = "1723214510";  // your network key;
+  char hostName[HostNameMaxLength] = "192.168.0.101";  // your Vmix ip;
+  int tallyNumber = 1;  //vmix Input number to watch
+
+
 
 // HTTP Server settings
 
